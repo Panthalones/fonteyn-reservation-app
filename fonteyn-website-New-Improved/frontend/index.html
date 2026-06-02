@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fonteyn Holiday Parks</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <a class="logo" href="index.html">Fonteyn Holiday Parks</a>
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <nav id="navMenu">
+      <a href="#home">Home</a>
+      <a href="#parks">Parken</a>
+      <a href="#booking">Boeken</a>
+      <a href="#sustainability">Duurzaamheid</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">Duurzaam vakantie vieren in Europa</span>
+      <h1>Boek jouw perfecte vakantie bij Fonteyn Holiday Parks</h1>
+      <p>Ontdek luxe vakantieparken in Nederland, België en Duitsland met comfort, natuur en slimme duurzaamheid.</p>
+      <div class="hero-actions">
+        <a href="#booking" class="btn">Boek nu</a>
+        <a href="#parks" class="btn secondary">Bekijk parken</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="search-card">
+      <div>
+        <label>Bestemming</label>
+        <select>
+          <option>Alle parken</option>
+          <option>Fonteyn Veluwe</option>
+          <option>Fonteyn Ardennen</option>
+          <option>Fonteyn Eifel</option>
+        </select>
+      </div>
+      <div>
+        <label>Aankomst</label>
+        <input type="date" />
+      </div>
+      <div>
+        <label>Vertrek</label>
+        <input type="date" />
+      </div>
+      <div>
+        <label>Gasten</label>
+        <input type="number" min="1" value="2" />
+      </div>
+      <a href="#booking" class="btn full">Zoeken</a>
+    </section>
+
+    <section id="parks" class="section">
+      <div class="section-title">
+        <span class="eyebrow">Onze locaties</span>
+        <h2>Populaire vakantieparken</h2>
+        <p>Een overzicht van internationale parken die klaar zijn voor schaalbare online reserveringen.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-image veluwe"></div>
+          <div class="card-body">
+            <span>Nederland</span>
+            <h3>Fonteyn Veluwe</h3>
+            <p>Luxe vakantiehuizen midden in de natuur, ideaal voor families.</p>
+            <strong>Vanaf €189 per nacht</strong>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-image ardennen"></div>
+          <div class="card-body">
+            <span>België</span>
+            <h3>Fonteyn Ardennen</h3>
+            <p>Rust, recreatie en outdoor activiteiten in een groene omgeving.</p>
+            <strong>Vanaf €149 per nacht</strong>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-image eifel"></div>
+          <div class="card-body">
+            <span>Duitsland</span>
+            <h3>Fonteyn Eifel</h3>
+            <p>Comfortabele cottages met wellness, natuur en familiefaciliteiten.</p>
+            <strong>Vanaf €169 per nacht</strong>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="booking" class="section booking-section">
+      <div class="section-title">
+        <span class="eyebrow">Online reserveren</span>
+        <h2>Maak een reservatie</h2>
+        <p>De reservatie wordt via de Python-backend opgeslagen in de MySQL dataserver.</p>
+      </div>
+
+      <form id="bookingForm" class="booking-form">
+        <div class="form-group">
+          <label for="fullName">Volledige naam</label>
+          <input id="fullName" type="text" placeholder="Bijv. Jan Jansen" required />
+        </div>
+        <div class="form-group">
+          <label for="email">E-mailadres</label>
+          <input id="email" type="email" placeholder="jan@email.com" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Telefoonnummer</label>
+          <input id="phone" type="text" placeholder="06 12345678" />
+        </div>
+        <div class="form-group">
+          <label for="park">Park</label>
+          <select id="park" required>
+            <option value="">Kies een park</option>
+            <option value="Fonteyn Veluwe">Fonteyn Veluwe - Nederland</option>
+            <option value="Fonteyn Ardennen">Fonteyn Ardennen - België</option>
+            <option value="Fonteyn Eifel">Fonteyn Eifel - Duitsland</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="accommodation">Accommodatie</label>
+          <select id="accommodation" required>
+            <option value="">Kies accommodatie</option>
+            <option value="Luxe Cottage">Luxe Cottage</option>
+            <option value="Familiehuis">Familiehuis</option>
+            <option value="Kampeerplaats">Kampeerplaats</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="arrivalDate">Aankomstdatum</label>
+          <input id="arrivalDate" type="date" required />
+        </div>
+        <div class="form-group">
+          <label for="departureDate">Vertrekdatum</label>
+          <input id="departureDate" type="date" required />
+        </div>
+        <div class="form-group">
+          <label for="guests">Aantal gasten</label>
+          <input id="guests" type="number" min="1" placeholder="Aantal gasten" required />
+        </div>
+        <div class="form-group wide">
+          <label for="extras">Extra opties</label>
+          <input id="extras" type="text" placeholder="Bijv. fietsen, ontbijt, bowling" />
+        </div>
+        <button type="submit" class="btn submit-btn">Reservatie opslaan</button>
+        <p id="formMessage" class="form-message"></p>
+      </form>
+    </section>
+
+    <section id="sustainability" class="section green-section">
+      <div>
+        <span class="eyebrow light">Innovatie & duurzaamheid</span>
+        <h2>Carbon footprint en slimme sensoren</h2>
+        <p>Fonteyn wil bezoekers inzicht geven in hun carbon footprint en gebruikt sensordata voor energieverbruik, temperatuur en faciliteiten.</p>
+      </div>
+      <div class="stats">
+        <div><strong>24/7</strong><span>Monitoring</span></div>
+        <div><strong>3</strong><span>Landen</span></div>
+        <div><strong>300+</strong><span>Seizoensmedewerkers</span></div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+      <div class="section-title">
+        <span class="eyebrow">Support</span>
+        <h2>Contact</h2>
+        <p>E-mail: info@fonteynholidayparks.nl<br />Telefoon: +31 123 456 789</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Fonteyn Holiday Parks. Alle rechten voorbehouden.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

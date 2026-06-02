@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Fonteyn Holiday Parks</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <section id="loginSection" class="section">
+    <h1>Admin toegang</h1>
+    <p>Log in met Microsoft Entra ID om reservaties te beheren.</p>
+
+    <button id="loginBtn" class="btn" onclick="signInWithMicrosoft()">
+      Sign in with Microsoft Entra ID
+    </button>
+
+    <p id="loginMessage" class="form-message"></p>
+  </section>
+
+  <section id="adminSection" class="section" style="display: none;">
+    <h1>Reservatiebeheer</h1>
+    <p>Bekijk en verwijder reservaties uit de dataserver.</p>
+
+    <button id="logoutBtn" class="btn" onclick="signOut()">Uitloggen</button>
+    <button id="refreshBtn" class="btn" onclick="loadReservations()">Reservaties vernieuwen</button>
+
+    <div class="admin-table-wrapper">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Naam</th>
+            <th>Email</th>
+            <th>Park</th>
+            <th>Accommodatie</th>
+            <th>Aankomst</th>
+            <th>Vertrek</th>
+            <th>Gasten</th>
+            <th>Prijs</th>
+            <th>Status</th>
+            <th>Actie</th>
+          </tr>
+        </thead>
+        <tbody id="reservationsTable">
+          <tr>
+            <td colspan="11">Reservaties worden geladen...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p id="adminMessage" class="form-message"></p>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/@azure/msal-browser@2.39.0/lib/msal-browser.min.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
