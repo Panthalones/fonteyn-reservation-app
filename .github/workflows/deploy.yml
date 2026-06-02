@@ -23,10 +23,10 @@ jobs:
 
       - name: Build and push backend image
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/fonteyn-backend:${{ github.sha }} ./backend
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/fonteyn-backend:${{ github.sha }} ./fonteyn-website-New-Improved/backend
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/fonteyn-backend:${{ github.sha }}
 
       - name: Build and push frontend image
         run: |
-          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/fonteyn-frontend:${{ github.sha }} ./frontend
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/fonteyn-frontend:${{ github.sha }} ./fonteyn-website-New-Improved/frontend
           docker push ${{ secrets.ACR_LOGIN_SERVER }}/fonteyn-frontend:${{ github.sha }}
