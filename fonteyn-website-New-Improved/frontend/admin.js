@@ -1,4 +1,4 @@
-const API_URL = "https://jouw-backend-container-url";
+const API_URL = "https://fonteyn-backend.graymushroom-75e4e72a.swedencentral.azurecontainerapps.io";
 
 const msalConfig = {
   auth: {
