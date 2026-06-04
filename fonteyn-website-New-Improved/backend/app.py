@@ -46,7 +46,7 @@ def create_tables():
     cursor.execute("""
         IF NOT EXISTS (
             SELECT * FROM sysobjects
-            WHERE name='reservationss' AND xtype='U'
+            WHERE name='reservations' AND xtype='U'
         )
         CREATE TABLE reservations (
             id INT IDENTITY(1,1) PRIMARY KEY,
@@ -59,6 +59,7 @@ def create_tables():
             departure_date DATE NOT NULL,
             guests INT NOT NULL,
             extras NVARCHAR(MAX),
+            total_price DECIMAL(10,2),
             status NVARCHAR(50) DEFAULT 'pending',
             created_at DATETIME2 NOT NULL
         )
@@ -135,6 +136,7 @@ def create_reservation():
                 departure_date,
                 guests,
                 extras,
+                total_price,
                 status,
                 created_at
             )
@@ -150,6 +152,7 @@ def create_reservation():
             data["departure_date"],
             int(data["guests"]),
             data.get("extras", ""),
+            float(data.get("total_price", 0)),
             "pending",
             datetime.now()
         ))
