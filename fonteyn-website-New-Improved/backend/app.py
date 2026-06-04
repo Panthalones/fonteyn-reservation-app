@@ -336,7 +336,6 @@ def delete_reservation(reservation_id):
         """, (reservation_id,))
 
         conn.commit()
-
         cursor.close()
         conn.close()
 
