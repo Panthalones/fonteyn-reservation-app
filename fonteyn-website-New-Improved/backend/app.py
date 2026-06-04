@@ -70,6 +70,27 @@ def create_tables():
     conn.close()
 
 
+def get_value(data, snake_case_key, camel_case_key=None, default=""):
+    if snake_case_key in data:
+        return data.get(snake_case_key)
+
+    if camel_case_key and camel_case_key in data:
+        return data.get(camel_case_key)
+
+    return default
+
+
+def calculate_price(accommodation, guests):
+    prices = {
+        "Luxe Cottage": 189,
+        "Familiehuis": 149,
+        "Kampeerplaats": 49
+    }
+
+    base_price = prices.get(accommodation, 0)
+    return base_price * guests
+
+
 @app.route("/")
 def home():
     return jsonify({
@@ -105,23 +126,41 @@ def create_reservation():
     if not data:
         return jsonify({"error": "No data received"}), 400
 
-    required_fields = [
-        "full_name",
-        "email",
-        "park",
-        "accommodation",
-        "arrival_date",
-        "departure_date",
-        "guests"
-    ]
+    full_name = get_value(data, "full_name", "fullName")
+    email = get_value(data, "email")
+    phone = get_value(data, "phone")
+    park = get_value(data, "park")
+    accommodation = get_value(data, "accommodation")
+    arrival_date = get_value(data, "arrival_date", "arrivalDate")
+    departure_date = get_value(data, "departure_date", "departureDate")
+    guests = get_value(data, "guests")
+    extras = get_value(data, "extras")
+    total_price = get_value(data, "total_price", "totalPrice", None)
 
-    for field in required_fields:
-        if field not in data or str(data[field]).strip() == "":
+    required_fields = {
+        "full_name": full_name,
+        "email": email,
+        "park": park,
+        "accommodation": accommodation,
+        "arrival_date": arrival_date,
+        "departure_date": departure_date,
+        "guests": guests
+    }
+
+    for field, value in required_fields.items():
+        if value is None or str(value).strip() == "":
             return jsonify({
                 "error": f"Field '{field}' is required"
             }), 400
 
     try:
+        guests = int(guests)
+
+        if total_price is None or str(total_price).strip() == "":
+            total_price = calculate_price(accommodation, guests)
+        else:
+            total_price = float(total_price)
+
         conn = get_db_connection()
         cursor = conn.cursor()
 
@@ -143,16 +182,16 @@ def create_reservation():
             OUTPUT INSERTED.id
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
-            data["full_name"],
-            data["email"],
-            data.get("phone", ""),
-            data["park"],
-            data["accommodation"],
-            data["arrival_date"],
-            data["departure_date"],
-            int(data["guests"]),
-            data.get("extras", ""),
-            float(data.get("total_price", 0)),
+            full_name,
+            email,
+            phone,
+            park,
+            accommodation,
+            arrival_date,
+            departure_date,
+            guests,
+            extras,
+            total_price,
             "pending",
             datetime.now()
         ))
@@ -200,7 +239,6 @@ def get_reservations():
         """)
 
         rows = cursor.fetchall()
-
         reservations = []
 
         for row in rows:
